@@ -1,0 +1,54 @@
+<launch>
+
+
+  <!-- Define Mavros parameters -->
+  <arg name="fcu_url" default="/dev/ttyACM0:57600"/>
+  <arg name="gcs_url" default="udp://@localhost:14550" />   
+  <arg name="tgt_system" default="1" />
+  <arg name="tgt_component" default="1" />
+  <arg name="log_output" default="screen" />
+	<arg name="fcu_protocol" default="v2.0" />
+	<arg name="respawn_mavros" default="false" />
+  <!-- vehicle model and world -->
+ 
+
+  <include file="$(find mavros)/launch/node.launch">
+      <arg name="pluginlists_yaml" value="$(find mavros)/launch/px4_pluginlists.yaml" />
+      <arg name="config_yaml" value="$(find mrover)/config/px4_config.yaml" />
+      <arg name="fcu_url" value="$(arg fcu_url)" />
+      <arg name="gcs_url" value="$(arg gcs_url)" />
+      <arg name="tgt_system" value="$(arg tgt_system)" />
+      <arg name="tgt_component" value="$(arg tgt_component)" />
+  </include>
+
+  <!-- Launch Joystick node -->
+  <node pkg="mrover" type="joystick_translatior_mrover.py" name="joystick_translatior_mrover">
+  </node>
+  <!-- Run two joy nodes publishing to the same topic, just to cover two possible joystick locations -->
+  <node pkg="joy" type="joy_node" name="joy_node0">
+      <param name="dev" value="/dev/input/js0"/>
+  </node>
+
+  <!-- Start add vehicle -->
+  <param name="robot_description" command="$(find xacro)/xacro '$(find mrover)/description/steer_rover/robot_core.urdf.xacro'" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+  
+  <!-- Add Lidar -->
+  <!-- <include file="$(find ydlidar_ros_driver)/launch/G6_G7.launch" /> -->
+  <!-- Add Camera -->
+  <!-- <include file="$(find v4l2_camera)/launch/v4l2_camera.launch" >
+    <node name="v4l2_camera" pkg="v4l2_camera" type="v4l2_camera" output="screen" args="/dev/video">
+      <param name="device" type="string" value="/dev/video2" />
+      <param name="camera_info" type="string" value="$(arg config_file)" />
+      <param name="camera_frame" value="camera_optical_link" type="string" />
+      <remap from="image" to="/image_raw"/>
+      <rosparam command="load" file="$(arg config_file)" />
+    </node>
+  </include> -->
+
+  <!-- Start MAVLink Bridge -->
+  <!-- <node pkg="rover" type="mavlink_bridge.py" name="MAVLinkBridge">
+  </node> -->
+
+</launch>
