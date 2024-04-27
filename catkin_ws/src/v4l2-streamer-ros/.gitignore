@@ -1,0 +1,12 @@
+# General
+.idea
+
+# CMake
+cmake-build-debug/
+cmake-build-release/
+
+# Catkin
+build/
+devel/
+logs/
+.catkin_tools/

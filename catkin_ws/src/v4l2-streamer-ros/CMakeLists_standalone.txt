@@ -1,0 +1,24 @@
+cmake_minimum_required(VERSION 3.10)
+
+project(v4l2_camera)
+
+link_directories(${MY_SOURCE_DIR}/lib)
+include_directories(src)
+include_directories(include)
+find_package(OpenCV REQUIRED)
+
+set(CMAKE_CXX_STANDARD 11)
+
+set(SRC_FOLDER src)
+set(INC_FOLDER include)
+
+set(SOURCE_FILES
+        ${SRC_FOLDER}/main.cpp
+        ${SRC_FOLDER}/v4l2_camera.cpp
+        )
+
+add_executable(v4l2_camera ${SOURCE_FILES})
+
+target_link_libraries(${CMAKE_PROJECT_NAME}
+        ${OpenCV_LIBRARIES}
+        )
