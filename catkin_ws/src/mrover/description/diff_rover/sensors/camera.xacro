@@ -10,7 +10,7 @@
     <xacro:property name="far" value="8.0" />
 
     <joint name="camera_joint" type="fixed">
-        <parent link="chassis"/>
+        <parent link="chassis_link"/>
         <child link="camera_link"/>
         <origin xyz="1.315 0 0.70" rpy="0 0 0"/>
     </joint>

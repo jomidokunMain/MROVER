@@ -18,6 +18,16 @@
 
     <!-- Base Link -->
     <link name="base_link" />
+    <!-- BASE_FOOTPRINT LINK -->
+
+    <joint name="base_footprint_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_footprint"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="base_footprint">
+    </link>
 
     <!-- Chassis -->
 
@@ -69,6 +79,20 @@
             </geometry>
             <material name="invisible"/>
         </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+            <geometry>
+                <cylinder length="0.01" radius="${wheel_radius}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+            <mass value="${wheel_mass}"/>
+            <inertia
+                ixx="0.000270" ixy="0.0" ixz="0.0"
+                iyy="0.000270" iyz="0.0"
+                izz="0.000426"/>
+        </inertial>
     </link>
     <gazebo reference="virtual_rear_wheel">
         <material>Gazebo/GreyTransparent</material>
@@ -172,6 +196,20 @@
         </geometry>
         <material name="invisible"/>
         </visual>
+        <collision>
+                <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+                <geometry>
+                    <cylinder length="0.01" radius="${wheel_radius}"/>
+                </geometry>
+        </collision>
+        <inertial>
+                <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+                <mass value="${wheel_mass}"/>
+                <inertia
+                    ixx="0.000270" ixy="0.0" ixz="0.0"
+                    iyy="0.000270" iyz="0.0"
+                    izz="0.000426"/>
+        </inertial>
     </link>
     <gazebo reference="virtual_front_wheel">
         <material>Gazebo/GreyTransparent</material>
@@ -223,7 +261,7 @@
         <axis xyz="0 0 1"/>
         <limit lower="-0.4" upper="0.4" effort="100.0" velocity="0.0"/>
         <dynamics damping="0.2"/>
-        <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/>
+        <!-- <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/> -->
     </joint>
 
     <!-- front left steering -->
@@ -264,7 +302,7 @@
         <axis xyz="0 0 1"/>
         <limit lower="-0.4" upper="0.4" effort="100.0" velocity="0.0"/>
         <dynamics damping="0.2"/>
-        <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/>
+        <!-- <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/> -->
     </joint>
 
 

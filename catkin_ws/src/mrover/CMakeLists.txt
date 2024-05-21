@@ -53,6 +53,8 @@ add_message_files(
   FILES
   Control.msg
   WheelEncoders.msg
+  CustomCommand.msg
+  Encoding.msg
   # Message1.msg
   # Message2.msg
 )
@@ -120,7 +122,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+include
   ${catkin_INCLUDE_DIRS}
 )
 

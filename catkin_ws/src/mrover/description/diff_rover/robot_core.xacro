@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
     <xacro:include filename="inertial_macros.xacro"/>
+    <!-- <xacro:include filename="materials.xacro"/> -->
 
 
     <material name="white">
@@ -24,8 +25,6 @@
     <material name="yellow">
         <color rgba="0.8 0.8 0 1"/>
     </material>
-
-
     <material name="dark_gray">
         <color rgba="0.5 0.5 0.5 1"/>
     </material>
@@ -41,11 +40,11 @@
 
     <joint name="chassis_joint" type="fixed">
         <parent link="base_link"/>
-        <child link="chassis"/>
+        <child link="chassis_link"/>
         <origin xyz="-0.65 0 0"/>
     </joint>
 
-    <link name="chassis">
+    <link name="chassis_link">
         <visual>
             <origin xyz="0.65 0 0.415"/>
             <geometry>
@@ -57,7 +56,7 @@
             <origin xyz="0.65 0 0.415"/>
         </xacro:inertial_box>
     </link>
-    <gazebo reference="chassis">
+    <gazebo reference="chassis_link">
         <material>Gazebo/Orange</material>
     </gazebo>
 
@@ -65,7 +64,7 @@
     <!-- Back LEFT WHEEL LINK -->
 
     <joint name="back_left_wheel_joint" type="continuous">
-        <parent link="chassis"/>
+        <parent link="chassis_link"/>
         <child link="back_left_wheel"/>
         <origin xyz="0 0.525 0" rpy="-${pi/2} 0 0" />
         <axis xyz="0 0 1"/>
@@ -94,7 +93,7 @@
     <!-- Back RIGHT WHEEL LINK -->
 
     <joint name="back_right_wheel_joint" type="continuous">
-        <parent link="chassis"/>
+        <parent link="chassis_link"/>
         <child link="back_right_wheel"/>
         <origin xyz="0 -0.525 0" rpy="${pi/2} 0 0" />
         <axis xyz="0 0 -1"/>
@@ -125,7 +124,7 @@
     <!-- Front LEFT WHEEL LINK -->
 
     <joint name="front_left_wheel_joint" type="continuous">
-        <parent link="chassis"/>
+        <parent link="chassis_link"/>
         <child link="front_left_wheel"/>
         <origin xyz="1.3 0.525 0" rpy="-${pi/2} 0 0" />
         <axis xyz="0 0 1"/>
@@ -154,7 +153,7 @@
     <!-- RIGHT WHEEL LINK -->
 
     <joint name="front_right_wheel_joint" type="continuous">
-        <parent link="chassis"/>
+        <parent link="chassis_link"/>
         <child link="front_right_wheel"/>
         <origin xyz="1.3 -0.525 0" rpy="${pi/2} 0 0" />
         <axis xyz="0 0 -1"/>

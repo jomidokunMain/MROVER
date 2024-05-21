@@ -3,8 +3,9 @@
 ####
 ## Assumption: you're at the 'oscar' directory.
 source ~/.bashrc
-source /home/jesudara/rosBash/noeotic/runSource.sh  
+# source /home/jesudara/rosBash/noeotic/runSource.sh  
 source catkin_ws/devel/setup.bash
+source vls_ws/devel/setup.bash
 conda activate mrover
 
 
