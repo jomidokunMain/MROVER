@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+    <xacro:include filename="inertial_macros.xacro"/>
+    <xacro:include filename="materials.xacro"/>
+
+
+    <!-- Constants for robot dimensions -->
+    <xacro:property name="PI" value="3.1415926535897931"/>
+    <xacro:property name="base_mass" value="8.0" /> <!-- arbitrary value for base mass -->
+    <xacro:property name="base_width" value="0.94" />
+    <xacro:property name="base_length" value="1.3" />
+    <xacro:property name="base_height" value="0.83" />
+    <xacro:property name="wheelbase" value="0.8" />
+    <xacro:property name="wheel_mass" value="0.34055" /> <!-- arbitrary value for wheel mass -->
+    <xacro:property name="wheel_len" value="0.125" />
+    <xacro:property name="wheel_radius" value="0.1397" />
+    <xacro:property name="str_angle" value="0.6"/>
+    <xacro:property name="car_width_offset" value="0.05"/>
+    <xacro:property name="tyre_origin">
+        <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+    </xacro:property>
+    <!-- <xacro:property name="wheeltrack" value="" -->
+
+    <!-- Base Link -->
+    <link name="base_link" />
+
+    <!-- Chassis -->
+
+    <link name="chassis_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${base_length} ${base_width} ${base_height}"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${base_length} ${base_width} ${base_height}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="${base_mass}"/>
+            <inertia
+                ixx="0.000270" ixy="0.0" ixz="0.0"
+                iyy="0.000270" iyz="0.0"
+                izz="0.000426"/>
+        </inertial>
+    </link>
+    <gazebo reference="chassis_link">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <joint name="chassis_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="chassis_link"/>
+        <origin xyz="0 0 ${base_height/2 + wheel_radius}" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <dynamics damping="0.2"/>
+    </joint>
+
+
+   
+
+    <!-- rear right wheel -->
+
+    <link name="rear_right_wheel">
+        <visual>
+            <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+            <geometry>
+                <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+            <geometry>
+                <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+            <mass value="${wheel_mass}"/>
+            <inertia
+                ixx="0.000270" ixy="0.0" ixz="0.0"
+                iyy="0.000270" iyz="0.0"
+                izz="0.000426"/>
+        </inertial>
+    </link>
+    <gazebo reference="rear_right_wheel">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <joint name="rear_right_wheel_joint" type="continuous">
+        <parent link="chassis_link"/>
+        <child link="rear_right_wheel"/>
+        <origin xyz="-${wheelbase/2} ${base_width/2} -${base_height/2}" rpy="0 0 ${PI/2}"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="1000.0" velocity="1000.0"/>
+        <dynamics damping="0.01"/>
+        <joint_properties damping="10" friction="10.0" />
+        <!-- <mimic joint="virtual_rear_wheel_joint" multiplier="1.0" offset="0.0"/> -->
+    </joint>
+
+    <!-- rear left wheel -->
+    <link name="rear_left_wheel">
+        <visual>
+            <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+            <geometry>
+                <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+            <geometry>
+                <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+            <mass value="${wheel_mass}"/>
+            <inertia
+            ixx="0.000270" ixy="0.0" ixz="0.0"
+            iyy="0.000270" iyz="0.0"
+            izz="0.000426"/>
+        </inertial>
+    </link>
+    <gazebo reference="rear_left_wheel">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <joint name="rear_left_wheel_joint" type="continuous">
+        <parent link="chassis_link" />
+        <child link="rear_left_wheel" />
+        <origin xyz="-${wheelbase/2} -${base_width/2} -${base_height/2}" rpy="0 0 ${PI/2}"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="1000.0" velocity="1000.0"/>
+        <dynamics damping="0.01"/>
+         <joint_properties damping="10" friction="10.0" />
+        <!-- <mimic joint="virtual_rear_wheel_joint" multiplier="1.0" offset="0.0"/> -->
+    </joint>
+
+  
+    <!-- front right wheel -->
+     <!-- front right steering -->
+
+    <link name="front_right_steering_link">   
+        <visual>
+            <xacro:insert_block name="tyre_origin"/>
+            <geometry>
+                <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <xacro:insert_block name="tyre_origin"/>
+            <geometry>
+                <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <xacro:insert_block name="tyre_origin"/>
+            <mass value="${wheel_mass}"/>
+            <inertia
+                ixx="0.000270" ixy="0.0" ixz="0.0"
+                iyy="0.000270" iyz="0.0"
+                izz="0.000426"/>
+        </inertial>
+    </link>
+    <gazebo reference="front_right_steering_link">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+
+    <link name="front_right_wheel">   
+        <visual>
+            <!-- <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/> -->
+            <origin xyz="0 ${car_width_offset*2} 0.0" rpy="0 0 ${-PI/2}"/>
+            <geometry>
+                <!-- <cylinder length="${wheel_len}" radius="${wheel_radius}"/> -->
+                <!-- <mesh scale="1.2 1 1" filename="package://catvehicle/meshes/ford_escape_wheel.dae"/> -->
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+            <geometry>
+                <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+            <mass value="${wheel_mass}"/>
+            <inertia
+                ixx="0.000270" ixy="0.0" ixz="0.0"
+                iyy="0.000270" iyz="0.0"
+                izz="0.000426"/>
+        </inertial>
+    </link>
+    <gazebo reference="front_right_wheel">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+
+
+    <joint name="front_right_steering_joint" type="revolute">
+        <parent link="chassis_link" />
+        <child link="front_right_steering_link" />
+        <origin xyz="${wheelbase/2} ${base_width/2} -${base_height/2}" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="10000" lower="${-str_angle}" upper="${str_angle}" velocity="1000"/>
+        <!-- <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/> -->
+    </joint>
+
+    <joint name="front_right_wheel_joint" type="continuous">
+        <parent link="front_right_steering_link" />
+        <child link="front_right_wheel" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+         <dynamics damping="0.01"/>
+        <limit effort="10000" lower="${-str_angle}" upper="${str_angle}" velocity="1000"/>
+        <joint_properties damping="10" friction="10.0" />
+        <!-- <mimic joint="virtual_front_wheel_joint" multiplier="1.0" offset="0.0"/> -->
+    </joint>
+    
+
+
+
+   
+    
+
+    <!-- front left steering -->
+
+
+    <link name="front_left_wheel">
+        <parent link="front_left_wheel_joint"/>
+        <visual>
+            <origin xyz="0 ${-car_width_offset*2} 0.0" rpy="0 0 ${PI/2}"/>
+            <geometry>
+                <!-- <cylinder length="${wheel_len}" radius="${wheel_radius}"/> -->
+                <!-- <mesh scale="1.2 1 1" filename="package://catvehicle/meshes/ford_escape_wheel.dae"/> -->
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+            <geometry>
+                <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+                <!--mesh filename="package://catvehicle/meshes/ford_escape_wheel.dae"/-->
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="${wheel_mass}"/>
+            <inertia
+                ixx="0.000270" ixy="0.0" ixz="0.0"
+                iyy="0.000270" iyz="0.0"
+                izz="0.000426"/>
+        </inertial>
+
+    </link>
+    <gazebo reference="front_left_wheel">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <link name="front_left_steering_link">
+        <parent link="chassis_link"/>
+        <visual>
+            <xacro:insert_block name="tyre_origin"/>
+            <geometry>
+                <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <xacro:insert_block name="tyre_origin"/>
+            <geometry>
+                <cylinder length="${wheel_len}" radius="${wheel_radius}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <xacro:insert_block name="tyre_origin"/>
+            <mass value="${wheel_mass}"/>
+            <inertia
+                ixx="0.000270" ixy="0.0" ixz="0.0"
+                iyy="0.000270" iyz="0.0"
+                izz="0.000426"/>
+        </inertial>
+
+    </link>
+    <gazebo reference="front_left_steering_link">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+    
+    <joint name="front_left_steering_joint" type="revolute">
+        <parent link="chassis_link" />
+        <child link="front_left_steering_link" />
+        <origin xyz="${wheelbase/2} -${base_width/2} -${base_height/2}" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="10000" lower="${-str_angle}" upper="${str_angle}" velocity="1000"/>
+    </joint>
+
+    <joint name="front_left_wheel_joint" type="continuous">
+        <parent link="front_left_steering_link" />
+        <child link="front_left_wheel" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+        <dynamics damping="0.01"/>
+        <limit effort="10000" velocity="1000" />
+        <joint_properties damping="10" friction="10.0" />
+    </joint>
+
+  
+
+
+
+</robot>

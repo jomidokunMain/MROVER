@@ -1,0 +1,15 @@
+# mavros_param.yaml
+mavros:
+  ros__parameters: {}
+
+mavros_router:
+  ros__parameters: {}
+
+mavros_node:
+  ros__parameters:
+    fcu_url: udp://@localhost:14550
+
+/**:
+  ros__parameters:
+    plugin_denylist: [odometry]
+    # plugin_allowlist: []

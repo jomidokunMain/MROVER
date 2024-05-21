@@ -1,10 +1,5 @@
-catkin_ws/build
-catkin_ws/devel
-vls_ws
-ros_control
-
-
-*.pcd
-*.pyc
-qtcreator-*
-*.user
+dev_ws/build
+dev_ws/install 
+dev_ws/log
+*.log
+*.mkv

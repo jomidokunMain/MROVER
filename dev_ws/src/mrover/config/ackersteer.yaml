@@ -1,0 +1,51 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 30 # Hz
+    # use_sim_time: true
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    bicycle_steering_controller:
+      type: ackermann_steering_controller/AckermannSteeringController
+
+bicycle_steering_controller:
+  ros__parameters:
+    rear_wheel_name: "rear_right_wheel_joint"
+    rear_wheel_name: "rear_left_wheel_joint"
+    front_steer_name: "front_right_wheel_joint"
+    front_steer_name: "front_left_wheel_joint"
+    base_frame_id: base_link
+
+    publish_rate: 50.0
+    # # rear_wheels: ['rear_right_wheel_joint', 'rear_left_wheel_joint']
+    # left_wheel_names: ["rear_left_wheel_joint", "front_left_wheel_joint"]
+    # right_wheel_names: ["front_right_wheel_joint", "rear_right_wheel_joint"]
+    wheel_separation_h: 0.80
+    wheel_separation: 0.80
+    wheel_radius: 0.1397
+    enable_odom_tf: true
+    open_loop: true
+    use_stamped_vel: false
+    pose_covariance_diagonal:
+      [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
+    twist_covariance_diagonal:
+      [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
+#     open_loop: false
+#     velocity_rolling_window_size: 10
+#     base_frame_id: base_link
+#     odom_frame_id: odom
+#     enable_odom_tf: true
+
+#     position_feedback: false
+#     use_stamped_vel: true
+# # controller_manager:
+#   ros__parameters:
+#     update_rate: 50 # Hz
+
+#     joint_state_broadcaster:
+#       type: joint_state_broadcaster/JointStateBroadcaster
+
+#     diff_cont:
+#       type: ackermann_steering_controller/AckermannSteeringController
+

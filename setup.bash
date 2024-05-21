@@ -3,15 +3,10 @@
 ####
 ## Assumption: you're at the 'oscar' directory.
 source ~/.bashrc
-# source /home/jesudara/rosBash/noeotic/runSource.sh  
-source catkin_ws/devel/setup.bash
-source vls_ws/devel/setup.bash
-conda activate mrover
+source /opt/ros/foxy/setup.bash 
+source dev_ws/install/setup.bash
 
 
-
-export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$(pwd)/PX4-Autopilot > /dev/null 2>&1
-export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$(pwd)/PX4-Autopilot/Tools/sitl_gazebo > /dev/null 2>&1
 
 ##
 # add neural_net folder to PYTHONPATH

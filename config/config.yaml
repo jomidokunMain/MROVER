@@ -1,0 +1,7 @@
+# config file name
+# - If you want to change it, make your own copy like <meaningful>.yaml
+# - The config name will be postfixed to the neural network weight file name
+# - update: separated configs
+neural_net: rover_template
+data_collection: rover_template
+run_neural: rover_template
