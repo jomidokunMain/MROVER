@@ -1,13 +1,14 @@
 plugin_blacklist:
-# common
-- safety_area
-# extras
-- image_pub
-- vibration
-- distance_sensor
-- rangefinder
-- wheel_odometry
-
+  # common
+  - safety_area
+  # extras
+  - image_pub
+  - vibration
+  - distance_sensor
+  - rangefinder
+  - vision_pose
+  - wheel_odometry
+  # - mount_control
 
 plugin_whitelist: []
 #- 'sys_*'

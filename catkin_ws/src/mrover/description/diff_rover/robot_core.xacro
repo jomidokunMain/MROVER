@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
     <xacro:include filename="inertial_macros.xacro"/>
+    <!-- <xacro:include filename="materials.xacro"/> -->
 
 
     <material name="white">
@@ -24,8 +25,6 @@
     <material name="yellow">
         <color rgba="0.8 0.8 0 1"/>
     </material>
-
-
     <material name="dark_gray">
         <color rgba="0.5 0.5 0.5 1"/>
     </material>
