@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """
-Created on Sat Sep 23 13:23:14 2017
 History:
 11/28/2020: modified for OSCAR 
 
