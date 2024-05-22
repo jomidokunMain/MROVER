@@ -3,6 +3,7 @@
 ####
 ## Assumption: you're at the 'oscar' directory.
 source ~/.bashrc
+export OSCAR_PATH=$(pwd)
 source /opt/ros/foxy/setup.bash 
 source dev_ws/install/setup.bash
 

@@ -14,13 +14,13 @@ version: 0.92
 steering_angle_max: 22.5
 steering_angle_tolerance: 0.0155 # around 7.5 degree
 
-# image cropping: True for legacy datasets. 
+# image cropping: True for legacy datasets.
 #                 False for new datasets.
 crop: False
 brake: False
 # vehicle name
-vehicle_name: rover
-# camera image topic 
+vehicle_name: mrover
+# camera image topic
 camera_image_topic: /camera/color/image_raw
 # vehicle control topic name
 vehicle_control_topic: /rover
@@ -32,9 +32,10 @@ base_pose_topic: /mavros/odometry/in
 mavros_cmd_vel_topic: /mavros/setpoint_velocity/cmd_vel_unstamped
 # mavros cmd_alt topic: an alternative to velcoity control
 mavros_cmd_alt_topic: /mavros/setpoint_raw/attitude
+path_to_e2e_data: ./e2e_data'
 
 ######################################################
-## when training and running, cropping input image 
+## when training and running, cropping input image
 
 # crop (capture) area from a camera image
 # - gazebo simulated camera resolution: 800x600
