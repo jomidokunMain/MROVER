@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Launch the Gazebo simulator -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <!-- Specify the world file to be used by Gazebo -->
+        <!-- <arg name="world_name" value="$(find mrover)/worlds/empty.world"/> -->
+        <!-- Optionally set the GUI to true or false -->
+        <arg name="gui" value="true"/>
+        <!-- Optionally pause the simulation initially -->
+        <arg name="paused" value="false"/>
+        <!-- Optionally set the use of a custom configuration for physics -->
+        <arg name="use_sim_time" value="true"/>
+    </include>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description"
+      command="$(find xacro)/xacro '$(find mrover)/description/steer_rover/robot_core.urdf.xacro'" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+  <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find mrover)/rviz/mrover_lidar.rviz">
+    <remap from="/odom" to="/odom_demo"/>
+  </node>
+
+    <!-- Load controller config -->
+  <rosparam command="load" file="$(find mrover)/config/ackermann_steer.yaml" />
+
+  <!-- Load ackermann_steering_bot config -->
+  <rosparam command="load" file="$(find mrover)/config/ackermann_steer_sim.yaml" />
+
+  <!-- Start ackermann_steering_bot -->
+  <node name="ackermann_steering_controller_ackermann_steering_bot"
+        pkg="ackermann_steering_controller"
+        type="ackermann_steering_controller_ackermann_steering_bot">
+    <remap from="/ackermann_steering_bot_controller/odom" to="/odom"/>
+    <remap from="/ackermann_steering_bot_controller/cmd_vel" to="/cmd_vel"/>
+  </node>
+
+    <!-- Spawn controller -->
+  <node name="controller_spawner"
+        pkg="controller_manager" type="spawner" output="screen"
+        args="ackermann_steering_bot_controller" >
+  </node>
+  
+         
+  <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-param robot_description -urdf -model my_robot"/>
+
+</launch>
