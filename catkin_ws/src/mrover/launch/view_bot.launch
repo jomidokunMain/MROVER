@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description"
+      command="$(find xacro)/xacro '$(find mrover)/description/steer_rover/robot_core.urdf.xacro'" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui"/>
+  <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find mrover)/rviz/view_bot.rviz">
+    <remap from="/odom" to="/odom_demo"/>
+  </node>
+
+  
+
+</launch>

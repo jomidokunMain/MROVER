@@ -17,16 +17,17 @@
   <param name="robot_description"
       command="$(find xacro)/xacro '$(find mrover)/description/steer_rover/robot_core.urdf.xacro'" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
-  <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find mrover)/rviz/mrover_lidar.rviz">
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/> -->
+  <!-- <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find mrover)/rviz/mrover_lidar.rviz">
     <remap from="/odom" to="/odom_demo"/>
-  </node>
+  </node> -->
 
     <!-- Load controller config -->
   <rosparam command="load" file="$(find mrover)/config/ackermann_steer.yaml" />
 
   <!-- Load ackermann_steering_bot config -->
   <rosparam command="load" file="$(find mrover)/config/ackermann_steer_sim.yaml" />
+  <rosparam  command="load" file="$(find mrover)/config/joint_state_publisher.yaml"/>
 
   <!-- Start ackermann_steering_bot -->
   <node name="ackermann_steering_controller_ackermann_steering_bot"
@@ -39,7 +40,7 @@
     <!-- Spawn controller -->
   <node name="controller_spawner"
         pkg="controller_manager" type="spawner" output="screen"
-        args="ackermann_steering_bot_controller" >
+        args="joint_state_publisher ackermann_steering_bot_controller" >
   </node>
  
 
@@ -108,8 +109,8 @@
   </node> -->
 
  
-  <!-- <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find mrover)/rviz/mrover_lidar.rviz">
+  <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find mrover)/rviz/mrover_lidar.rviz">
     <remap from="/odom" to="/odom_demo"/>
-  </node> -->
+  </node>
 
 </launch>

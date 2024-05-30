@@ -1,12 +1,22 @@
-joy_dev: "/dev/input/js1"
+joy_dev: "/dev/input/js0"
 deadzone: 0.05
-autorepeat_rate:
-  20.0
-  # Axis mappings
-axis_linear.x: 1 # Left Analog X
-axis_angular.yaw: 3 # Right Analog Y
-enable_button: 4 # L2 shoulder button
-enable_turbo_button: 5 # L1 shoulder button
-# Scale factors
-scale_linear.x: 0.1 # Adjust the scaling factor for linear velocity if needed
-scale_angular.z: 0.1 # Adjust the scaling factor for angular velocity if needed
+# autorepeat_rate:
+#   20.0
+#   # Axis mappings
+# axis_linear.x: 4 # Left Analog X
+# axis_angular.yaw: 0 # Right Analog Y
+# enable_button: 4 # L2 shoulder button
+# enable_turbo_button: 5 # L1 shoulder button
+# # Scale factors
+# scale_linear.x: 0.1 # Adjust the scaling factor for linear velocity if needed
+# scale_angular.z: 0.1 # Adjust the scaling factor for angular velocity if needed
+
+axis_linear: 4 # Left thumb stick vertical
+scale_linear: 0.7
+scale_linear_turbo: 1.5
+
+axis_angular: 0 # Left thumb stick horizontal
+scale_angular: 0.4
+
+enable_button: 4 # Left trigger button
+enable_turbo_button: 5 # Right trigger button

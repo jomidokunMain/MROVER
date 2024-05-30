@@ -2,11 +2,13 @@ ackermann_steering_bot_hw_sim:
   # rear_wheel: "rear_wheel_joint"
   # front_steer: "front_steer_joint"
   rear_wheel: "virtual_rear_wheel_joint"
-  front_steer: "virtual_front_wheel_joint"
+  front_steer: "virtual_front_steer_joint"
 
   rear_wheels: ["rear_right_wheel_joint", "rear_left_wheel_joint"]
   front_wheels: ["front_right_wheel_joint", "front_left_wheel_joint"]
-  # front_steers: ["front_right_steer_joint", "front_left_steer_joint"]
-  front_steers: ["front_right_wheel_joint", "front_left_wheel_joint"]
+  front_steers: ["front_right_steer_joint", "front_left_steer_joint"]
+  # front_steers: ["front_right_wheel_joint", "front_left_wheel_joint"]
 
   wheel_separation_h: 0.80
+  wheel_separation_w: 0.80
+  enable_ackermann_link: true
