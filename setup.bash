@@ -2,10 +2,11 @@
 
 ####
 ## Assumption: you're at the 'oscar' directory.
-source ~/.bashrc
-source /home/jesudara/rosBash/noeotic/runSource.sh  
+
+source /opt/ros/noetic/setup.bash
 source catkin_ws/devel/setup.bash
-source /home/jesudara/bimi_publish/MROVER/mavros_ws/devel/setup.bash
+# source /home/jesudara/bimi_publish/MROVER/mavros_ws/devel/setup.bash
+# source ros_control/ros_ws/devel/setup.bash
 conda activate mrover
 
 

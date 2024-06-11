@@ -1,19 +1,14 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/MYROBOT</robotNamespace>
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <robotNamespace>/</robotNamespace>
+      <robotSimType>steer_bot_hardware_gazebo/SteerBotHardwareGazebo</robotSimType>
     </plugin>
   </gazebo>
-	
-
-  
-
 </robot>
 
-controller_manager:
+<!-- controller_manager:
   ros__parameters:
     update_rate: 50 # Hz
 
@@ -39,4 +34,4 @@ ackermann_steering_controller:
     twist_covariance_diagonal: [0.0, 7.0, 14.0, 21.0, 28.0, 35.0]
     pose_covariance_diagonal: [0.0, 7.0, 14.0, 21.0, 28.0, 35.0]
     position_feedback: false
-    use_stamped_vel: true
+    use_stamped_vel: true -->

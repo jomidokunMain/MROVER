@@ -1,52 +1,64 @@
-ackermann_steering_bot_controller:
+# ackermann_steering_bot_controller:
+#   type: "ackermann_steering_controller/AckermannSteeringController"
+#   # rear_wheel: "rear_wheel_joint"
+#   # front_steer: "front_steer_joint"
+#   rear_wheel: "virtual_rear_wheel_joint"
+#   front_steer: "virtual_front_steer_joint"
+
+#   publish_rate: 50.0 # defaults to 50
+
+#   pose_covariance_diagonal: [0.0, 0.00, 0.0, 1000000.0, 1000000.0, 1000.0]
+#   twist_covariance_diagonal: [0.00, 0.00, 0.0, 1000000.0, 1000000.0, 1000.0]
+#   cmd_vel_timeout: 20.0 # we test this separately, give plenty for the other tests
+
+#   #wheel_separation_h : 0.4
+#   #wheel_radius : 0.11
+#   # wheel_separation_h_multiplier: 0.80 # calibration parameter for odometory, needed for test.
+#   # Odometry calibration and tuning
+#   wheel_separation_h_multiplier: 1.0  # default: 1.0
+#   wheel_radius_multiplier: 1.0        # default: 1.0
+#   steer_pos_multiplier: 1.0           # default: 1.0
+
+#   # Odometry covariances for the encoder output of the robot.
+#   pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+#   twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+
+#   # Top level frame (link) of the robot description
+#   base_frame_id: 'base_link'
+
+#   # Transform from odom -> base_link
+#   enable_odom_tf: true
+#   odom_frame_id: '/odom'
+
+#   # Set to false if the motor driver provides velocity data.
+#   estimate_velocity_from_position: true
+
+#   # Commands
+#   publish_cmd: true
+#   allow_multiple_cmd_vel_publishers: false
+
+#   # Velocity and acceleration limits for the robot
+#   linear:
+#       x:
+#           has_velocity_limits    : true
+#           max_velocity           : 10.0   # m/s
+#           has_acceleration_limits: true
+#           max_acceleration       : 2.0    # m/s^2
+#   angular:
+#       z:
+#           has_velocity_limits    : true
+#           max_velocity           : 3.0   # rad/s
+#           has_acceleration_limits: true
+#           max_acceleration       : 3.0    # rad/s^2
+
+mobile_base_controller:
   type: "ackermann_steering_controller/AckermannSteeringController"
-  # rear_wheel: "rear_wheel_joint"
-  # front_steer: "front_steer_joint"
   rear_wheel: "virtual_rear_wheel_joint"
   front_steer: "virtual_front_steer_joint"
-
   publish_rate: 50.0 # defaults to 50
-
-  pose_covariance_diagonal: [0.0, 0.00, 0.0, 1000000.0, 1000000.0, 1000.0]
-  twist_covariance_diagonal: [0.00, 0.00, 0.0, 1000000.0, 1000000.0, 1000.0]
+  pose_covariance_diagonal:
+    [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
+  twist_covariance_diagonal:
+    [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
   cmd_vel_timeout: 20.0 # we test this separately, give plenty for the other tests
-
-  #wheel_separation_h : 0.4
-  #wheel_radius : 0.11
-  # wheel_separation_h_multiplier: 0.80 # calibration parameter for odometory, needed for test.
-  # Odometry calibration and tuning
-  wheel_separation_h_multiplier: 1.0  # default: 1.0
-  wheel_radius_multiplier: 1.0        # default: 1.0
-  steer_pos_multiplier: 1.0           # default: 1.0
-
-  # Odometry covariances for the encoder output of the robot.
-  pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
-  twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
-
-  # Top level frame (link) of the robot description
-  base_frame_id: 'base_link'
-
-  # Transform from odom -> base_link
-  enable_odom_tf: true
-  odom_frame_id: '/odom'
-
-  # Set to false if the motor driver provides velocity data. 
-  estimate_velocity_from_position: true
-
-  # Commands
-  publish_cmd: true
-  allow_multiple_cmd_vel_publishers: false
-
-  # Velocity and acceleration limits for the robot
-  linear:
-      x:
-          has_velocity_limits    : true
-          max_velocity           : 10.0   # m/s
-          has_acceleration_limits: true
-          max_acceleration       : 2.0    # m/s^2
-  angular:
-      z:
-          has_velocity_limits    : true
-          max_velocity           : 3.0   # rad/s
-          has_acceleration_limits: true
-          max_acceleration       : 3.0    # rad/s^2
+  wheel_separation_h_multiplier: 0.257 # calibration parameter for odometory, needed for test.
