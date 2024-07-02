@@ -8,6 +8,7 @@ plugin_blacklist:
   - rangefinder
   - vision_pose
   - wheel_odometry
+  - odom
   # - mount_control
 
 plugin_whitelist: []

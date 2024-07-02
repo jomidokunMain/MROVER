@@ -1,0 +1,9 @@
+rear_wheel_joint:
+  velocity_limits:
+    max_velocity: 1.0
+    min_velocity: -1.0
+
+front_steer_joint:
+  velocity_limits:
+    max_velocity: 1.0
+    min_velocity: -1.0

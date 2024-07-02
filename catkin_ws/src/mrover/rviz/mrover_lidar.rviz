@@ -28,7 +28,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: Image
   - Class: rviz_plugin_tutorials/Teleop
     Name: Teleop
     Topic: ""
@@ -76,7 +76,27 @@ Visualization Manager:
           Value: true
         chassis_link:
           Value: true
+        front_left_steer:
+          Value: true
+        front_left_wheel:
+          Value: true
+        front_right_steer:
+          Value: true
+        front_right_wheel:
+          Value: true
+        imu_sensor_link:
+          Value: true
         laser_frame:
+          Value: true
+        odom:
+          Value: true
+        rear_left_wheel:
+          Value: true
+        rear_right_wheel:
+          Value: true
+        virtual_front_steer:
+          Value: true
+        virtual_rear_wheel:
           Value: true
       Marker Alpha: 1
       Marker Scale: 1
@@ -85,15 +105,32 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        base_link:
-          base_footprint:
-            {}
-          chassis_link:
-            camera_link:
-              camera_link_optical:
-                {}
-            laser_frame:
+        odom:
+          base_link:
+            base_footprint:
               {}
+            chassis_link:
+              camera_link:
+                camera_link_optical:
+                  {}
+              front_left_steer:
+                front_left_wheel:
+                  {}
+              front_right_steer:
+                front_right_wheel:
+                  {}
+              imu_sensor_link:
+                {}
+              laser_frame:
+                {}
+              rear_left_wheel:
+                {}
+              rear_right_wheel:
+                {}
+              virtual_front_steer:
+                {}
+              virtual_rear_wheel:
+                {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -148,6 +185,10 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        imu_sensor_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         laser_frame:
           Alpha: 1
           Show Axes: false
@@ -200,7 +241,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.009999999776482582
+      Size (m): 0.10000000149011612
       Style: Flat Squares
       Topic: /scan
       Unreliable: false
@@ -247,7 +288,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 14.011275291442871
+      Distance: 11.977376937866211
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -263,9 +304,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.2503989636898041
+      Pitch: 0.4103989005088806
       Target Frame: <Fixed Frame>
-      Yaw: 1.033007025718689
+      Yaw: 1.9961618185043335
     Saved: ~
 Window Geometry:
   Displays:

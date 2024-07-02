@@ -1,0 +1,13 @@
+<launch>
+    <!-- Start rosserial node to communicate with Arduino -->
+    <node name="arduino_node" pkg="rosserial_python" type="serial_node.py" output="screen">
+        <param name="port" value="/dev/ttyUSB0"/> <!-- Adjust the port as per your Arduino connection -->
+        <param name="baud" value="115200"/>     <!-- Adjust baud rate if needed -->
+    </node>
+
+    <!-- Load joint limits from YAML file -->
+    <rosparam file="$(find mobile_robot_autonomous_navigation)/config/joint_limits.yaml" command="load"/>
+
+    <!-- Start ROS hardware interface node -->
+    <node name="robot_hw_interface_node" pkg="mobile_robot_autonomous_navigation" type="robot_hw_interface_node" output="screen"/>
+</launch>

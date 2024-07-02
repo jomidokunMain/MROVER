@@ -12,11 +12,18 @@ deadzone: 0.05
 # scale_angular.z: 0.1 # Adjust the scaling factor for angular velocity if needed
 
 axis_linear: 4 # Left thumb stick vertical
-scale_linear: 0.7
-scale_linear_turbo: 1.5
+scale_linear: 0.2
+scale_linear_turbo: 0.6
 
 axis_angular: 0 # Left thumb stick horizontal
 scale_angular: 0.4
+
+# axis_linear: 3 # Left thumb stick vertical
+# scale_linear: 0.2
+# scale_linear_turbo: 0.5
+
+# axis_angular: 0 # Left thumb stick horizontal
+# scale_angular: 0.4
 
 enable_button: 4 # Left trigger button
 enable_turbo_button: 5 # Right trigger button

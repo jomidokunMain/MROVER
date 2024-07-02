@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+
+    <!-- Camera properties -->
+    <!-- <xacro:property name="hfov" value="1.089" /> 
+    <xacro:property name="cam_width" value="640" /> 
+    <xacro:property name="cam_height" value="480" /> 
+    <xacro:property name="near" value="0.05" /> -->
+    <xacro:property name="imu_mass" value="0.085" />
+    <xacro:property name="camera_height_dif" value="0.5" />
+    <xacro:property name="camera_size_x" value="0.03" />
+    <xacro:property name="camera_size_y" value="0.1" />
+    <xacro:property name="camera_size_z" value="0.1" />
+    
+
+    <joint name="imu_sensor_joint" type="fixed">
+        <axis xyz="0 0 1" />
+        <!-- <origin xyz="${xyz}" rpy="${rpy}"/> -->
+        <parent link="chassis_link"/>
+        <child link="imu_sensor_link"/>
+        <origin xyz="${base_length/2 + camera_size_x/2 } 0 ${base_height - camera_height_dif}" rpy="0 0 0"/>
+    </joint>
+    
+
+    <link name="imu_sensor_link">
+        <sensor name="imu_sensor" type="imu">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <update_rate>100</update_rate>
+            <imu>
+                <topic>mavros/imu/data</topic>
+                <frame>imu_frame</frame>
+                <!-- Add any additional configuration parameters here -->
+            </imu>
+        </sensor>
+    </link>
+
+     <!-- Transmission for the IMU sensor -->
+    <!-- <transmission name="imu_sensor_transmission">
+        <type>hardware_interface/ImuSensorInterface</type>
+        <joint name="imu_sensor_joint">
+            <hardwareInterface>hardware_interface/ImuSensorInterface</hardwareInterface>
+        </joint>
+    </transmission> -->
+
+
+    <gazebo reference="imu_sensor_link">
+        <gravity>true</gravity>
+        <sensor name='imu_sensor' type='imu'>
+            <always_on>1</always_on>
+            <update_rate>1000</update_rate>
+            <visualize>1</visualize>
+            <topic>__default_topic__</topic>
+            <plugin name='imu_plugin' filename='libgazebo_ros_imu_sensor.so'>
+                <topicName>imu_data</topicName>
+                <bodyName>imu_sensor_link</bodyName>
+                <updateRateHZ>10.0</updateRateHZ>
+                <gaussianNoise>0.0</gaussianNoise>
+                <xyzOffset>0 0 0</xyzOffset>
+                <rpyOffset>0 0 0</rpyOffset>
+            </plugin>
+            <pose>0 0 0 0 0 0</pose>
+        </sensor>
+    </gazebo>
+
+</robot>

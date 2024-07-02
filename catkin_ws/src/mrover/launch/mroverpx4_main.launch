@@ -17,10 +17,9 @@
   <param name="robot_description"
       command="$(find xacro)/xacro '$(find mrover)/description/steer_rover/robot_core.urdf.xacro'" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
-  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/> -->
-  <!-- <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find mrover)/rviz/mrover_lidar.rviz">
-    <remap from="/odom" to="/odom_demo"/>
-  </node> -->
+
+  <!-- load configuration -->
+  <rosparam command="load" file="$(find imu_sensor_controller)/imu_sensor_controller.yaml" />
 
     <!-- Load controller config -->
   <rosparam command="load" file="$(find mrover)/config/ackermann_steer.yaml" />
@@ -42,16 +41,19 @@
         pkg="controller_manager" type="spawner" output="screen"
         args="joint_state_publisher ackermann_steering_bot_controller" >
   </node>
+  <node name="robot_hw_interface_node" pkg="mobile_robot_autonomous_navigation" type="robot_hw_interface_node" output="screen"/>
  
 
   <include file="$(find mavros)/launch/node.launch">
       <arg name="pluginlists_yaml" value="$(find mrover)/config/px4_pluginlists.yaml" />
       <arg name="config_yaml" value="$(find mrover)/config/px4_config.yaml" />
+      <!-- <arg name="config_yaml" value="$(find mrover)/config/px4_config_imu.yaml" /> -->
       <arg name="fcu_url" value="$(arg fcu_url)" />
       <arg name="gcs_url" value="$(arg gcs_url)" />
       <arg name="tgt_system" value="$(arg tgt_system)" />
       <arg name="tgt_component" value="$(arg tgt_component)" />
   </include>
+
   <!-- <node pkg="mrover" type="topic_encode.py" name="topic_encode">
   </node> -->
 
@@ -102,6 +104,10 @@
    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se_odom" output="screen">
     <param name="config_file" value="$(find mrover)/config/ekf_se_odom.yaml"/>
   </node>
+  <node name="arduino_node" pkg="rosserial_python" type="serial_node.py" output="screen">
+      <param name="port" value="/dev/ttyUSB0"/> <!-- Adjust the port as per your Arduino connection -->
+      <param name="baud" value="115200"/>     <!-- Adjust baud rate if needed -->
+  </node>
 
   <!-- <node pkg="rosserial_python" type="serial_node.py" name="rosserial_arduino" output="screen">
     <param name="serial_port" value="/dev/ttyUSB0"/> 
@@ -110,7 +116,7 @@
 
  
   <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find mrover)/rviz/mrover_lidar.rviz">
-    <remap from="/odom" to="/odom_demo"/>
+    <!-- <remap from="/odom" to="/odom_demo"/> -->
   </node>
 
 </launch>
