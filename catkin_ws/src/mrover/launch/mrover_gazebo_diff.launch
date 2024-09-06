@@ -1,26 +1,16 @@
 <?xml version="1.0"?>
 <launch>
-
-  <param name="robot_description"
-      command="$(find xacro)/xacro '$(find mrover)/description/steer_rover/robot_core.urdf.xacro'" />
-
-  <!-- Send fake joint values-->
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-    <param name="use_gui" value="false"/>
-  </node>
-
-  <!-- Send robot states to tf -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
-  
   <arg name="world" default="empty"/>
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
-
+  <arg name="robot_namespace" default=""/>
+  <param name="robot_description"
+      command="$(find xacro)/xacro '$(find mrover)/description/diff_rover/robot.urdf.xacro'" />
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <!-- <arg name="world_name" value="$(find skid_steer_bot)/worlds/jackal_race.world"/>  jackal_race, open_space.world  -->
+    <arg name="world_name" value="$(find mrover)/worlds/sonoma_raceway.world"/> 
     <arg name="paused" value="$(arg paused)"/>
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>
     <arg name="gui" value="$(arg gui)"/>
@@ -28,9 +18,19 @@
     <arg name="debug" value="$(arg debug)"/>
   </include>
 
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="false"/>
+  </node>
+
   <!--spawn a robot in gazebo world-->
+  <!-- <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-urdf -param robot_description -model robot -robot_namespace $(arg robot_namespace) -x 0 -y 0 -z 0.1 -R 0 -P 0 -Y 0"/> -->
+
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false"
-  output="screen" args="-urdf -param robot_description -model robot"/>
+  output="screen" args="-urdf -param robot_description -model robot -x 0 -y 0 -z 0.1 -R 0 -P 0 -Y 0"/>
+      
+  <!-- Send robot states to tf -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
 
   <node pkg="joy" type="joy_node" name="joy_node0">
       <param name="dev" value="/dev/input/js0"/>

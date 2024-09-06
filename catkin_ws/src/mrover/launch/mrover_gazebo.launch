@@ -31,7 +31,7 @@
         <!--send ackerman plugin params to param server-->
         <rosparam file="$(find mrover)/config2/ctrl_ackermann_steering_controller.yaml" command="load"/>
         <rosparam  command="load" file="$(find mrover)/config2/ctrl_gains.yaml"/>
-        <rosparam  command="load" file="$(find mrover)/config2/ctrl_joint_state_publisher.yaml"/>
+        <!-- <rosparam  command="load" file="$(find mrover)/config2/ctrl_joint_state_publisher.yaml"/> -->
         <rosparam  command="load" file="$(find mrover)/config2/ctrl_steer_bot_hardware_gazebo.yaml"/>
 
         <!-- Spawn the controllers -->

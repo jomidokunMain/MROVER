@@ -1,12 +1,5 @@
 <?xml version="1.0"?>
 <!--
-  Robot model adapted from https://github.com/CIR-KIT/steer_drive_ros/blob/kinetic-devel/steer_drive_controller/test/common/urdf/steerbot.xacro
-
-  Modifications:
-    Remove base_footprint link. Useful for navigation but not necessary for a simple example.
-    Added materials for URDF
-    Updated inertials
-
   Geometry:
     The Ackermann steering controllers require the longitudinal
     separation between the front and back wheel axes and the
@@ -20,7 +13,6 @@
   <!-- Include xacro for inertials, materials and wheels -->
   <xacro:include filename="wheel.xacro"/>
   <xacro:include filename="inertial_macros.xacro"/>
-    <!-- <xacro:include filename="materials.xacro"/> -->
 
   <xacro:property name="robot_namespace" value="/steer_bot"/>
 
@@ -48,7 +40,7 @@
   <!-- Wheel link dimensions -->
   <xacro:property name="wheel_radius" value="0.1397" />
   <xacro:property name="wheel_thickness" value="0.125" />
-  <xacro:property name="wheel_mass" value="1" />
+  <xacro:property name="wheel_mass" value="8" />
 
   <!-- Steering link dimensions -->
   <xacro:property name="steer_radius" value="0.05" />
@@ -92,6 +84,13 @@
       <geometry>
         <box size="${base_length} ${base_width} ${base_height}"/>
       </geometry>
+      <contact>
+        <ode>
+          <mu>20</mu>
+          <mu2>20</mu2>
+        </ode>
+      </contact>
+
     </collision>
     <xacro:solid_cuboid_inertial 
         rpy="0 0 0" xyz="0 0 0"

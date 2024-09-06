@@ -4,12 +4,12 @@
     <xacro:include filename="robot_core.xacro" />
     <xacro:include filename="sensors/lidar.xacro" />
     <xacro:include filename="sensors/camera.xacro" />
+    <xacro:include filename="gazebo/gazebo_control_diff.xacro" /> 
     <!-- <xacro:include filename="sensors/camera.xacro" /> -->
     
 
     <!-- <xacro:include filename="gazwbo_control_steer.xacro" />
     <xacro:include filename="lidar.xacro" /> -->
-    <!-- <xacro:include filename="gazebo_control.xacro" />  -->
     
     <!-- <xacro:include filename="robot_core_ackermann.xacro" /> -->
     <!-- <xacro:include filename="mrover_ackermann.xacro" />
