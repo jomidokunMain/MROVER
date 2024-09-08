@@ -4,11 +4,24 @@
     <gazebo>
         <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
 
-            <!-- Wheel Information -->
+
+            
+            <!-- Number of wheel pairs -->
+            <num_wheel_pairs>2</num_wheel_pairs>
+
+            <!-- back Wheel Information -->
             <left_joint>back_left_wheel_joint</left_joint>
             <right_joint>back_right_wheel_joint</right_joint>
-    
-            <wheel_separation>0.8</wheel_separation>
+
+            <!-- front Wheel Information -->
+            <left_joint>front_left_wheel_joint</left_joint>
+            <right_joint>front_right_wheel_joint</right_joint>
+
+            <!-- kinematics -->
+            <wheel_separation>1.05</wheel_separation>
+            <wheel_separation>1.05</wheel_separation>
+            
+            <wheel_diameter>0.2794</wheel_diameter>
             <wheel_diameter>0.2794</wheel_diameter>
 
 
@@ -27,6 +40,5 @@
 
         </plugin>
     </gazebo>
-
 
 </robot>
